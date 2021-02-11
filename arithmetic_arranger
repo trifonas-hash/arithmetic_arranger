@@ -1,0 +1,69 @@
+def arithmetic_arranger(problems, *displayed):
+    number_of_problems = len(problems)
+    first_lines = ""
+    second_lines = ""
+    operator = ""
+    desired_sums = ""
+
+    fin_firsts = ""
+    fin_seconds = ""
+    fin_lines = ""
+    fin_sums = ""
+    
+    if number_of_problems > 5:
+      return "Error: Too many problems."
+
+    for i in problems:
+      split_problems = i.split()
+      first_lines = split_problems[0]
+      second_lines = split_problems[2]
+      operator = split_problems[1]
+
+      if (not first_lines.isnumeric()) or (not second_lines.isnumeric()):
+        return "Error: Numbers must only contain digits."
+
+      if len(first_lines)>4 or len(second_lines)>4:
+        return "Error: Numbers cannot be more than four digits."
+
+      if ((operator == "+") or (operator == "-")):
+            
+        if operator == "+":
+          desired_sums = str(int(first_lines) + int(second_lines))
+        else:
+          desired_sums = str(int(first_lines) - int(second_lines))
+
+
+        if (len(first_lines)>len(second_lines)):
+          lines_length = len(first_lines) + 2
+        else:
+          lines_length = len(second_lines) + 2
+
+        top_line = str(first_lines).rjust(lines_length)
+        bottom_line = operator + str(second_lines).rjust(lines_length - 1)
+        result = str(desired_sums).rjust(lines_length)
+
+        small_lines = ""
+
+        for j in range(lines_length):
+          small_lines += "-"
+
+
+        fin_firsts += top_line + "    "
+        fin_seconds += bottom_line + "    "
+        fin_lines += small_lines + "    "
+        fin_sums += result + "    "
+
+      else:
+        return "Error: Operator must be '+' or '-'."
+
+    fin_firsts = fin_firsts.rstrip()
+    fin_seconds = fin_seconds.rstrip()
+    fin_lines = fin_lines.rstrip()
+    fin_sums = fin_sums.rstrip()
+
+    if displayed:
+      arranged_problems = fin_firsts + "\n" + fin_seconds + "\n" + fin_lines + "\n" + fin_sums
+    else:
+      arranged_problems = fin_firsts + "\n" + fin_seconds + "\n" + fin_lines
+
+    return arranged_problems
